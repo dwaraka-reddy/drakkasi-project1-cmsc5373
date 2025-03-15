@@ -1,4 +1,4 @@
-export class HomeModel {
+export class GameModel {
   // Instance variables
   balance = 100;
   betType = null;
@@ -12,17 +12,9 @@ export class HomeModel {
   gameKey = null;
   gameInProgress = false;
 
-  // For backward compatibility
-  randomNumbers = [];
-
   constructor() {
-    // Generate initial game key (1-6)
+    // Generate initial game key
     this.gameKey = this.generateGameKey();
-  }
-
-  // Add random number (backward compatibility)
-  addNumber(num) {
-    this.randomNumbers.push(num);
   }
 
   // Generate a random game key (1-6)
@@ -166,7 +158,6 @@ export class HomeModel {
 
   // Reset everything
   reset() {
-    this.randomNumbers = [];
     this.balance = 100;
     this.betType = null;
     this.betAmount = null;

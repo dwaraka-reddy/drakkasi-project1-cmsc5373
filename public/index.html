@@ -1,85 +1,226 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>App Template</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script type ="module" src = "controller/app.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dice Roll Game</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Only apply blue background to winning message */
+      .win-message {
+        background-color: #0d6efd;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 4px;
+      }
+
+      /* User email display */
+      .user-email {
+        display: inline-block;
+        padding: 6px 12px;
+        background-color: #6c757d;
+        color: white;
+        border-radius: 4px;
+        margin-left: auto;
+      }
+
+      /* Plain navigation buttons */
+      .nav-btn {
+        text-decoration: none;
+        background-color: transparent;
+        color: #0d6efd;
+        padding: 6px 12px;
+        border: 1px solid #0d6efd;
+        border-radius: 4px;
+        margin-right: 5px;
+        display: inline-block;
+      }
+
+      .nav-btn:hover {
+        background-color: #f8f9fa;
+      }
+
+      .nav-btn-danger {
+        color: #dc3545;
+        border-color: #dc3545;
+      }
+
+      .nav-btn-danger:hover {
+        background-color: #f8d7da;
+      }
+
+      /* Login alignment */
+      .login-container {
+        max-width: 400px;
+        margin: 50px auto;
+        text-align: left;
+        position: relative;
+      }
+
+      .login-form {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      .user-display {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+    </style>
   </head>
   <body>
-    <!--spinning overlay as progress indicator-->
-    <div id="spinnerOverlay" style="z-index: 1100"
-     class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
-    <div class="spinner-border text-secondary" role="status" style="width: 100px; height: 100px;"></div>
-    </div>
-
-    <div class = "container">
-      <h1 id ="appHeader" class = "mt-3 text-center text-white text-white bg-primary">Cloud Web Template</h1>
-    </div>
-    <!--Navigation Menu-->
-    <div id="navMenuContainer" class="container d-none">
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="me-3 btn btn-outline-primary" data-path ="/" aria-current="page" >Home</a>
-              </li>
-              <li class="nav-item">
-                <a class=" me-3 btn btn-outline-primary" data-path="/profile">Profile</a>
-              </li>
-            </ul>
-              <button id="logoutButton"class="btn btn-danger">Logout</button>
-            </form>
-          </div>
-        </div>
-      </nav>
+    <div class="container-fluid bg-primary text-white py-3 mb-3">
+      <div class="container">
+        <h1 id="appHeader" class="text-center">Dice Roll Game</h1>
+      </div>
     </div>
 
     <div class="container">
-      <div id="loginDiv" class="card shadow p-4 d-block">
-        <h1>Login</h1>
-      <form name="loginForm">
-        <div class="mb-3">
-          <label class="form-label">Email</label>
-          <input name="email" type="email" class="form-control" required aria-describedby="emailHelp" placeholder="Enter Email">
+      <!-- Navigation Menu - hidden until logged in -->
+      <div id="navMenuContainer" class="d-none mb-3">
+        <div class="d-flex align-items-center">
+          <a href="#" id="homeLink" class="nav-btn" data-path="/">Home</a>
+          <a href="#" id="profileLink" class="nav-btn" data-path="/profile"
+            >Play History</a
+          >
+          <button id="logoutButton" class="nav-btn nav-btn-danger">
+            Sign Out
+          </button>
+          <span id="userEmailDisplay" class="user-email ms-auto"></span>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Password</label>
-          <input name="password" type="password" class="form-control" minlength="6" required placeholder="Enter password">
+      </div>
+
+      <!-- Login Form - shown if not logged in -->
+      <div id="loginDiv" class="d-block">
+        <div class="login-container text-start">
+          <div class="login-form">
+            <h4 class="text-center mb-4">Sign in, please!</h4>
+            <form name="loginForm">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  required
+                />
+              </div>
+              <div class="d-flex align-items-center">
+                <button type="submit" class="btn btn-danger">Submit</button>
+                <button
+                  id="noUserBtn"
+                  type="button"
+                  class="btn btn-secondary ms-auto"
+                >
+                  No User
+                </button>
+              </div>
+            </form>
+            <div class="mt-3">
+              <a href="#" id="goToCreateAccount">Create a new account</a>
+            </div>
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary">Enter</button>
-      </form>
-      <button id="goToCreateAccount" class=" btn btn-outline-danger mt-3">Go To Create Account Form</button>
+      </div>
+
+      <!-- Create Account Form - hidden by default -->
+      <div id="createAccountDiv" class="d-none">
+        <div class="login-container">
+          <div class="login-form">
+            <h4 class="text-center mb-4">Create a new account</h4>
+            <form name="createAccountForm">
+              <div class="mb-3">
+                <label for="createEmail" class="form-label"
+                  >Email address</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="createEmail"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="emailConfirm" class="form-label"
+                  >Confirm Email</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="emailConfirm"
+                  name="emailConfirm"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="createPassword" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="createPassword"
+                  name="password"
+                  required
+                />
+              </div>
+              <div>
+                <button type="submit" class="btn btn-primary">
+                  Create Account
+                </button>
+              </div>
+            </form>
+            <div class="mt-3">
+              <a href="#" id="goToLogin">Back to login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPA Root - Content will be injected here -->
+      <div id="spaRoot" class="d-none">
+        <!-- View content will be loaded here by Router -->
+      </div>
+
+      <!-- Guest SPA Root - For playing without login -->
+      <div id="guestSpaRoot" class="d-none">
+        <!-- Guest mode content will be loaded here -->
+      </div>
     </div>
 
-    <div id="createAccountDiv" class="card shadow p-4 d-none">
-      <h1>Create a New Account</h1>
-      <form name="createAccountForm">
-        <div class="mb-3">
-          <label class="form-label">Email</label>
-          <input name="email" type="email" class="form-control" required aria-describedby="emailHelp" placeholder="Enter Email">
+    <!-- Loading Spinner -->
+    <div
+      id="spinnerOverlay"
+      class="position-fixed top-0 start-0 w-100 h-100 d-none"
+      style="background-color: rgba(0, 0, 0, 0.5); z-index: 9999"
+    >
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div
+          class="spinner-border text-light"
+          role="status"
+          style="width: 3rem; height: 3rem"
+        >
+          <span class="visually-hidden">Loading...</span>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Confirm Email</label>
-          <input name="emailConfirm" type="email" class="form-control" required aria-describedby="emailHelp" placeholder="Confirm Email">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Password</label>
-          <input name="password" type="password" class="form-control" minlength="6" required placeholder="Enter password">
-        </div>
-        <button type="submit" class="btn btn-primary">Create</button>
-      </form>
-      <button id="goToLogin" class=" btn btn-outline-danger mt-3">Go To Login Form</button>
+      </div>
     </div>
-  </div>
-    <!--Single Page Application Root-->
-    <div class="container d-none" id="spaRoot">Single Page Application Root</div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="controller/app.js"></script>
   </body>
 </html>

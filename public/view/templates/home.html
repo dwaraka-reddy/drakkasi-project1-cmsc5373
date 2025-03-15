@@ -1,11 +1,133 @@
-<button id="generateDataButton" class="btn btn-outline-info">Generate Table Data</button>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>N</th>
-            <th>N<sup>2</sup></th>
-            <th>N<sup>3</sup></th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <!-- Balance and Dice Result -->
+      <div class="mb-4">
+        <h5>Balance: <span id="balance">$100</span></h5>
+        <div class="dice-container my-3 text-center">
+          <div
+            class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mx-auto"
+            style="width: 80px; height: 80px"
+          >
+            <h1 id="diceResult" class="display-5 mb-0">?</h1>
+          </div>
+        </div>
+
+        <!-- Show Key Checkbox -->
+        <div class="mb-2">
+          <label class="form-label">Show Key: </label>
+          <input class="form-check-input" type="checkbox" id="showKey" />
+          <span id="gameKeyDisplay"></span>
+        </div>
+      </div>
+
+      <!-- Game Result Message -->
+      <div class="alert alert-light mb-3" id="resultMessage">
+        Choose bet(s) and press [PLAY]
+      </div>
+
+      <!-- Betting Options -->
+      <div class="mb-4">
+        <div class="mb-3">
+          <label class="form-label">Bet on Odd/Even (2x winnings)</label>
+          <div class="d-flex align-items-center">
+            <div class="form-check me-3">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="oddEvenBet"
+                id="oddBet"
+                value="odd"
+              />
+              <label class="form-check-label bet-option" for="oddBet"
+                >odd</label
+              >
+            </div>
+            <div class="form-check me-3">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="oddEvenBet"
+                id="evenBet"
+                value="even"
+              />
+              <label class="form-check-label bet-option" for="evenBet"
+                >even</label
+              >
+            </div>
+            <select
+              id="oddEvenBetAmount"
+              class="form-select ms-auto"
+              style="width: auto"
+            >
+              <option value="" selected disabled>Select a bet amount</option>
+              <option value="10">$10</option>
+              <option value="20">$20</option>
+              <option value="30">$30</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Bet on Range (3x winnings)</label>
+          <div class="d-flex align-items-center">
+            <div class="form-check me-3">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="rangeBet"
+                id="range1"
+                value="1-2"
+              />
+              <label class="form-check-label bet-option" for="range1"
+                >1-2</label
+              >
+            </div>
+            <div class="form-check me-3">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="rangeBet"
+                id="range2"
+                value="3-4"
+              />
+              <label class="form-check-label bet-option" for="range2"
+                >3-4</label
+              >
+            </div>
+            <div class="form-check me-3">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="rangeBet"
+                id="range3"
+                value="5-6"
+              />
+              <label class="form-check-label bet-option" for="range3"
+                >5-6</label
+              >
+            </div>
+            <select
+              id="rangeBetAmount"
+              class="form-select ms-auto"
+              style="width: auto"
+            >
+              <option value="" selected disabled>Select a bet amount</option>
+              <option value="10">$10</option>
+              <option value="20">$20</option>
+              <option value="30">$30</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-flex">
+        <button id="playButton" class="btn btn-primary me-2" disabled>
+          Play
+        </button>
+        <button id="newGameButton" class="btn btn-danger">New Game</button>
+      </div>
+    </div>
+  </div>
+</div>

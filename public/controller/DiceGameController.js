@@ -1,20 +1,19 @@
-import { HomeModel } from "../model/HomeModel.js";
+import { GameModel } from "../model/GameModel.js";
 import { saveGameRecord } from "./firebase_firestore.js";
 import { startSpinner, stopSpinner } from "../view/util.js";
 
 // Create a global instance for persistence between views
-export const glHomeModel = new HomeModel();
+export const glGameModel = new GameModel();
 
-export class HomeController {
+export class DiceGameController {
   // Instance members
   model = null;
   view = null;
 
   constructor() {
-    this.model = glHomeModel;
+    this.model = glGameModel;
 
     // Bind methods to maintain 'this' context
-    this.onClickGenerateDataButton = this.onClickGenerateDataButton.bind(this);
     this.onOddEvenSelection = this.onOddEvenSelection.bind(this);
     this.onRangeSelection = this.onRangeSelection.bind(this);
     this.onOddEvenBetAmount = this.onOddEvenBetAmount.bind(this);
@@ -28,15 +27,7 @@ export class HomeController {
     this.view = view;
   }
 
-  // Original functionality (kept for backward compatibility)
-  onClickGenerateDataButton() {
-    //generate a random number between 1-100
-    const randomNumber = Math.floor(Math.random() * 100) + 1;
-    this.model.addNumber(randomNumber);
-    this.view.render();
-  }
-
-  // Dice game event handlers
+  // Event handlers
   onOddEvenSelection(type) {
     this.model.setBetTypeOddEven(type);
     this.view.render();

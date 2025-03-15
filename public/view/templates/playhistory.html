@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <h2 class="mb-3">Game Play History Records</h2>
+
+      <!-- Clear History Button -->
+      <button id="clearHistoryBtn" class="btn btn-sm btn-danger mb-3">
+        Clear History
+      </button>
+
+      <!-- Records Table -->
+      <table id="historyTable" class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Bet</th>
+            <th>Won</th>
+            <th>Balance</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody id="historyTableBody">
+          <!-- Records will be dynamically added here -->
+        </tbody>
+      </table>
+
+      <!-- No Records Message -->
+      <div id="noRecordsMsg" class="alert alert-danger text-center">
+        No gameplay history found!
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { formatDate, formatTime, formatCurrency } from "../view/util.js";
 
-export class ProfileModel {
+export class PlayHistoryModel {
   records = [];
   loading = false;
   error = null;

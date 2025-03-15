@@ -1,14 +1,14 @@
-import { ProfileModel } from "../model/ProfileModel.js";
+import { PlayHistoryModel } from "../model/PlayHistoryModel.js";
 import { getGameRecords, clearGameRecords } from "./firebase_firestore.js";
 import { startSpinner, stopSpinner } from "../view/util.js";
 
-export class ProfileController {
+export class PlayHistoryController {
   // Instance members
   model = null;
   view = null;
 
   constructor() {
-    this.model = new ProfileModel();
+    this.model = new PlayHistoryModel();
 
     // Bind methods to maintain 'this' context
     this.loadGameRecords = this.loadGameRecords.bind(this);
